@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head lang='en'>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width'>
+    <title>HTML5 Custom Elements</title>
+
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            color: #333;
+            font-weight: 300;
+        }
+    </style>
+</head>
+<body>
+<h1>HTML5 Custom Elements</h1>
+
+<button onClick="showDefaultModal()">Show Default Modal</button>
+<button onClick="showCardModal()">Show Card Modal</button>
+
+<shapla-wc-modal id="default-modal" type="box">
+    Some content
+</shapla-wc-modal>
+<shapla-wc-modal id="card-modal" heading="Card Heading" hide-card-footer>
+    Modal content
+</shapla-wc-modal>
+<my-element name="Sayful"></my-element>
+
+<script src='bundle.js'></script>
+<script>
+    const showDefaultModal = () => document.querySelector('#default-modal').setAttribute('active', 'true');
+    const showCardModal = () => document.querySelector('#card-modal').setAttribute('active', 'true');
+</script>
+</body>
+</html>

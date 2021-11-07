@@ -1,0 +1,51 @@
+@use "node_modules/shapla-css/src/index.scss" as shapla;
+
+@include shapla.modal;
+
+.shapla-modal-close,
+.shapla-modal-card__close {
+	--close-icon-size: 1.5rem;
+	appearance: none;
+	user-select: none;
+	padding: 0;
+	margin: 0;
+	border: none;
+	cursor: pointer;
+	align-items: center;
+	background-color: rgba(#000, 0.2);
+	border-radius: 290486px;
+	display: inline-flex;
+	justify-content: center;
+	color: #fff;
+
+	&:hover,
+	&:focus {
+		background-color: rgba(#000, 0.3);
+	}
+
+	& {
+		width: var(--close-icon-size, 1.5rem);
+		height: var(--close-icon-size, 1.5rem);
+	}
+
+	svg {
+		width: 75%;
+		fill: currentColor;
+	}
+}
+
+.shapla-modal-close {
+	--close-icon-size: 2rem;
+	position: fixed;
+	right: 1.25rem;
+	top: 1.25rem;
+}
+
+.shapla-modal-card__close {
+	margin-left: 1rem;
+}
+
+.shapla-modal-card__footer.no-content {
+	border-top: none;
+	padding: 2px;
+}
