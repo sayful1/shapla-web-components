@@ -5,7 +5,7 @@ class ShaplaWcCross extends LitElement {
     static get properties() {
         return {
             size: {type: String},
-            ariaLabel: {type: String},
+            ariaLabel: {type: String, attribute: 'content-size'},
         }
     }
 

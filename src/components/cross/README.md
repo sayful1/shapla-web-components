@@ -1,4 +1,4 @@
-# Shapla WC Cross
+# Shapla Web Component: Cross
 
 A versatile delete cross as HTML5 custom element (Web component)
 
@@ -31,5 +31,5 @@ window.customElements.define('shapla-wc-cross', ShaplaWcCross);
 
 | Property      | Type      | Required  | Default   | Description
 |---------------|-----------|-----------|-----------|--------------------------------------------------------
-| `size`        | String    | **no**    | `normal`  | Value can be `normal` or `small` or `medium` or `large`.
-| `ariaLabel`   | String    | **no**    | `close`   | Value for html `aria-label` attribute
+| `size`        | String    | **no**    | `normal`  | Value can be `normal` or `small` or `medium` or `large`
+| `aria-label`  | String    | **no**    | `close`   | Value for html `aria-label` attribute
