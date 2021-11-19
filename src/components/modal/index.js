@@ -73,10 +73,14 @@ class ShaplaWcModal extends LitElement {
                 <div class="shapla-modal-background is-${this.backgroundTheme}" @click=${this._bgClick}></div>
                 ${this._isCard() || this.hideCloseIcon ? '' : modalClose}
                 <div class="${contentClasses.join(' ')}">
-                    ${this._isCard() ? cardInnerStructure : html`
-                        <slot></slot>`}
+                    ${this._isCard() ? cardInnerStructure : this.getContent()}
                 </div>
             </div>`;
+    }
+
+    getContent() {
+        return html`
+            <slot></slot>`;
     }
 
     _isCard() {

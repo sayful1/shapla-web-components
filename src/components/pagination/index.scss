@@ -1,0 +1,3 @@
+@use "node_modules/shapla-css/src/index.scss" as shapla;
+
+@include shapla.pagination;

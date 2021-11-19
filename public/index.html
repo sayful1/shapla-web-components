@@ -19,6 +19,11 @@
 <button onClick="showDefaultModal()">Show Default Modal</button>
 <button onClick="showCardModal()">Show Card Modal</button>
 
+<div>
+    <shapla-wc-pagination total-items="1001" per-page="50" current-page="1"
+                          onPaginate="handlePagination()"></shapla-wc-pagination>
+</div>
+
 <shapla-wc-modal id="default-modal" type="box">
     Some content
 </shapla-wc-modal>
@@ -31,6 +36,14 @@
 <script>
     const showDefaultModal = () => document.querySelector('#default-modal').setAttribute('active', 'true');
     const showCardModal = () => document.querySelector('#card-modal').setAttribute('active', 'true');
+
+    let paginationEl = document.querySelector('shapla-wc-pagination');
+    if (paginationEl) {
+        paginationEl.addEventListener('paginate', event => {
+            console.log(event.detail);
+            paginationEl.setAttribute('current-page', event.detail.nextPage);
+        })
+    }
 </script>
 </body>
 </html>
