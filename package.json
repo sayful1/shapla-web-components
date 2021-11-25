@@ -25,6 +25,7 @@
     "dev": "npm-run-all --parallel start watch",
     "start": "serve public",
     "install:test": "npm i --D @open-wc/testing @web/test-runner",
+    "build:test": "npm run build && npm run test",
     "test": "web-test-runner test/**/*.test.js --coverage --node-resolve",
     "test:watch": "web-test-runner test/**/*.test.js --node-resolve --watch"
   }

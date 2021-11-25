@@ -1,5 +1,5 @@
 import {html, fixture, expect} from '@open-wc/testing';
-import '../src/main.js';
+import '../public/bundle.js';
 
 describe("ShaplaWcCross", () => {
     it("has a default size 'normal' and ariaLabel 'close'", async () => {
