@@ -75,6 +75,13 @@ describe('ShaplaWcPagination', () => {
         expect(detail.nextPage).to.equal(1);
     });
 
+    it('can change pre and next text', async () => {
+        const el = await fixture(html`
+            <shapla-wc-pagination text-previous="&laquo;" text-next="&raquo;"></shapla-wc-pagination>`);
+        expect(el.textPrevious).to.equal('«');
+        expect(el.textNext).to.equal('»');
+    })
+
     // it('passes the a11y audit', async () => {
     //     const el = await fixture(html`
     //         <shapla-wc-pagination></shapla-wc-pagination>`)

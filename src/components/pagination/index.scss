@@ -1,3 +1,10 @@
 @use "node_modules/shapla-css/src/index.scss" as shapla;
 
 @include shapla.pagination;
+
+.pagination-previous,
+.pagination-next,
+.pagination-link,
+.pagination-ellipsis {
+	box-sizing: border-box;
+}
