@@ -1,68 +1,75 @@
 <!doctype html>
 <html>
 <head lang='en'>
-    <meta charset='utf-8'>
-    <meta name='viewport' content='width=device-width'>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <title>HTML5 Custom Elements</title>
-    <link rel="stylesheet" href="./style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width'>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <title>HTML5 Custom Elements</title>
+  <link rel="stylesheet" href="./style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
 
-    <style>
-        body {
-            font-family: 'Open Sans', sans-serif;
-            color: #333;
-            font-weight: 300;
-        }
-    </style>
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+      color: #333;
+      font-weight: 300;
+    }
+  </style>
 </head>
 <body>
 <div class="page" style="padding: 1rem">
-    <h1>HTML5 Custom Elements</h1>
+  <h1>HTML5 Custom Elements</h1>
 
-    <button onClick="showDefaultModal()">Show Default Modal</button>
-    <button onClick="showCardModal()">Show Card Modal</button>
+  <button class="button--default-modal">Show Default Modal</button>
+  <button class="button--card-modal">Show Card Modal</button>
 
-    <div style="margin-top: 2rem; margin-bottom: 2rem;">
-        <shapla-wc-toggles data-uuid="toggles-1" data-title-color="primary" data-show-divider="true"
-                           data-box-mode="false" data-accordion="true">
-            <shapla-wc-toggle data-title="Toggle 1" data-selected>Toggle one content.</shapla-wc-toggle>
-            <shapla-wc-toggle data-title="Toggle 2">Toggle two content.</shapla-wc-toggle>
-            <shapla-wc-toggle data-title="Toggle 3">
-                <shapla-wc-toggles>
-                    <shapla-wc-toggle data-title="Toggle 1">Toggle one content.</shapla-wc-toggle>
-                    <shapla-wc-toggle data-title="Toggle 2">Toggle two content.</shapla-wc-toggle>
-                    <shapla-wc-toggle data-title="Toggle 3">Toggle two content.</shapla-wc-toggle>
-                </shapla-wc-toggles>
-            </shapla-wc-toggle>
+  <div style="margin-top: 2rem; margin-bottom: 2rem;">
+    <shapla-wc-toggles data-uuid="toggles-1" data-title-color="primary" data-show-divider="true"
+                       data-box-mode="false" data-accordion="true">
+      <shapla-wc-toggle data-title="Toggle 1" data-selected>Toggle one content.</shapla-wc-toggle>
+      <shapla-wc-toggle data-title="Toggle 2">Toggle two content.</shapla-wc-toggle>
+      <shapla-wc-toggle data-title="Toggle 3">
+        <shapla-wc-toggles>
+          <shapla-wc-toggle data-title="Toggle 1">Toggle one content.</shapla-wc-toggle>
+          <shapla-wc-toggle data-title="Toggle 2">Toggle two content.</shapla-wc-toggle>
+          <shapla-wc-toggle data-title="Toggle 3">Toggle two content.</shapla-wc-toggle>
         </shapla-wc-toggles>
-    </div>
+      </shapla-wc-toggle>
+    </shapla-wc-toggles>
+  </div>
 
-    <div>
-        <shapla-wc-pagination total-items="1001" per-page="50" current-page="1" text-previous="&laquo;"
-                              text-next="&raquo;" onPaginate="handlePagination()"></shapla-wc-pagination>
-    </div>
+  <div>
+    <shapla-wc-pagination total-items="1001" per-page="50" current-page="1" text-previous="&laquo;"
+                          text-next="&raquo;" onPaginate="handlePagination()"></shapla-wc-pagination>
+  </div>
 
-    <shapla-wc-modal id="default-modal" type="box">
-        Some content
-    </shapla-wc-modal>
-    <shapla-wc-modal id="card-modal" heading="Card Heading" hide-card-footer>
-        Modal content
-    </shapla-wc-modal>
+  <shapla-wc-modal id="default-modal" type="box">
+    Some content
+  </shapla-wc-modal>
+  <shapla-wc-modal id="card-modal" heading="Card Heading" disabled-footer>
+    Modal content
+  </shapla-wc-modal>
 </div>
 
 <script>
-    const showDefaultModal = () => document.querySelector('#default-modal').setAttribute('active', 'true');
-    const showCardModal = () => document.querySelector('#card-modal').setAttribute('active', 'true');
+  const showDefaultModal = () => document.querySelector('#default-modal').setAttribute('active', 'true');
+  const showCardModal = () => document.querySelector('#card-modal').setAttribute('active', 'true');
 
-    let paginationEl = document.querySelector('shapla-wc-pagination');
-    if (paginationEl) {
-        paginationEl.addEventListener('paginate', event => {
-            console.log(event.detail);
-            paginationEl.setAttribute('current-page', event.detail.nextPage);
-        })
-    }
+  document.querySelector('.button--default-modal').addEventListener('click', () => showDefaultModal());
+  document.querySelector('#default-modal')
+  .addEventListener('close', () => document.querySelector('#default-modal').removeAttribute('active'));
+  document.querySelector('.button--card-modal').addEventListener('click', () => showCardModal());
+  document.querySelector('#card-modal')
+  .addEventListener('close', () => document.querySelector('#card-modal').removeAttribute('active'));
+
+  const paginationEl = document.querySelector('shapla-wc-pagination');
+  if (paginationEl) {
+    paginationEl.addEventListener('paginate', (event) => {
+      window.console.log(event.detail);
+      paginationEl.setAttribute('current-page', event.detail.nextPage);
+    });
+  }
 </script>
 <script src='../public/bundle.js'></script>
 </body>
