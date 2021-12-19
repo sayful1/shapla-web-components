@@ -1,25 +1,28 @@
-import summary from 'rollup-plugin-summary';
-import resolve from '@rollup/plugin-node-resolve';
-import { terser } from 'rollup-plugin-terser';
-import litSass from '@j1shin/rollup-plugin-lit-sass';
-import { babel } from '@rollup/plugin-babel';
-import commonjs from '@rollup/plugin-commonjs';
+import summary from 'rollup-plugin-summary'
+import resolve from '@rollup/plugin-node-resolve'
+import litSass from '@j1shin/rollup-plugin-lit-sass'
+import { babel } from '@rollup/plugin-babel'
+import commonjs from '@rollup/plugin-commonjs'
+// import { terser } from 'rollup-plugin-terser'
+// import postcss from 'rollup-plugin-postcss'
 
 // `npm run build` -> `production` is true
 // `npm run dev` -> `production` is false
-const production = !process.env.ROLLUP_WATCH;
+const production = !process.env.ROLLUP_WATCH
 
 export default {
-  input: 'src/main.js',
+  input: { bundle: (production ? 'src/index.js' : 'src/main.js') },
   output: [
-    { file: 'public/bundle.js', format: 'esm', sourcemap: true },
+    { dir: 'dist', format: 'esm', sourcemap: true },
   ],
+  external: !production ? [] : [/node_modules/],
   plugins: [
     commonjs(),
     babel({ babelHelpers: 'bundled' }),
     resolve(),
     litSass(),
-    production && terser(), // minify, but only in production
+    // postcss(),
+    // production && terser(), // minify, but only in production
     summary(),
   ],
-};
+}

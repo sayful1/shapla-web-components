@@ -4,5 +4,7 @@
 .vscode
 node_modules
 coverage
+custom-elements.json
 package-lock.json
-public/bundle*
+public/*
+dist/bundle*
