@@ -1,4 +1,4 @@
-import ShaplaWcToggles from './toggles.js';
-import ShaplaWcToggle from './toggle.js';
+import ShaplaWcToggles from './shapla-wc-toggles';
+import ShaplaWcToggle from './shapla-wc-toggle';
 
 export { ShaplaWcToggles, ShaplaWcToggle };

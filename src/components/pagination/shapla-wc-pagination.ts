@@ -1,110 +1,110 @@
-import { css, html, LitElement } from 'lit';
-import style from './index.scss';
+import {css, html, LitElement} from 'lit';
+import {customElement, property} from 'lit/decorators.js';
+import style from './style.scss';
+
+interface ItemStructureInterface {
+  type: string,
+  number: number,
+  position?: string
+}
+
+customElement('shapla-wc-pagination');
 
 class ShaplaWcPagination extends LitElement {
-  static get properties() {
-    return {
-      totalItems: { type: Number, attribute: 'total-items' },
-      perPage: { type: Number, attribute: 'per-page' },
-      currentPage: { type: Number, attribute: 'current-page' },
-      prevText: { type: String, attribute: 'prev-text' },
-      nextText: { type: String, attribute: 'next-text' },
-      ariaLabel: { type: String, attribute: 'aria-label' },
-      screenReaderText: { type: String, attribute: 'screen-reader-text' },
-      urlFormat: { type: String, attribute: 'url-format' },
-      size: { type: String },
-      maxLinks: { type: Number, attribute: 'max-links' },
-      textPrevious: { type: String, attribute: 'text-previous' },
-      textNext: { type: String, attribute: 'text-next' },
-      itemAriaLabel: { type: String, attribute: 'item-aria-label' },
-      currentItemAriaLabel: {
-        type: String,
-        attribute: 'current-item-aria-label',
-      },
-    };
-  }
+  static override styles = style({css});
 
-  static get styles() {
-    return style({ css });
-  }
+  @property({type: Number, attribute: 'total-items'})
+  totalItems = 0;
 
-  constructor() {
-    super();
-    this.totalItems = 0;
-    this.currentPage = 1;
-    this.perPage = 20;
-    this.maxLinks = 6;
-    this.textPrevious = 'Previous';
-    this.textNext = 'Next';
-    this.itemAriaLabel = 'Goto page %#%';
-    this.currentItemAriaLabel = 'Page %#%';
-  }
+  @property({type: Number, attribute: 'per-page'})
+  perPage = 0;
 
-  render() {
+  @property({type: Number, attribute: 'current-page'})
+  currentPage = 0;
+
+  @property({type: Number, attribute: 'max-links'})
+  maxLinks = 6;
+
+  @property({type: String, attribute: 'text-previous'})
+  textPrevious = 'Previous';
+
+  @property({type: String, attribute: 'text-next'})
+  textNext = 'Next';
+
+  @property({type: String, attribute: 'item-aria-label'})
+  itemAriaLabel = 'Goto page %#%';
+
+  @property({type: String, attribute: 'current-item-aria-label'})
+  currentItemAriaLabel = 'Page %#%';
+
+  @property({type: String, attribute: 'size'})
+  size = 'default';
+
+  @property({type: String, attribute: 'url-format'})
+  urlFormat = undefined;
+
+  override render() {
     const ellipsis = html`
       <li><span class="pagination-ellipsis">&hellip;</span></li>`;
     const itemsHtml = this.itemStructure();
-    const pagination = html`
-      <nav class="pagination is-centered" role="navigation"
-           aria-label="pagination">
+    return html`
+      <nav class="pagination is-centered" role="navigation" aria-label="pagination">
         <a class="pagination-previous" ?disabled=${this._disabledPrevious()}
            @click=${this._previous}>${this.textPrevious}</a>
         <a class="pagination-next" ?disabled=${this._disabledNext()}
            @click=${this._next}>${this.textNext}</a>
         <ul class="pagination-list">
           ${itemsHtml.map((i) => {
-    if (i.type === 'ellipsis') {
-      return html`${ellipsis}`;
-    }
-    return this.itemHtml(i.number);
-  })}
+            if (i.type === 'ellipsis') {
+              return html`${ellipsis}`;
+            }
+            return this.itemHtml(i.number);
+          })}
         </ul>
       </nav>`;
-    return pagination;
   }
 
-  itemStructure() {
-    const itemsHtml = [];
+  itemStructure(): ItemStructureInterface[] {
+    const itemsHtml: ItemStructureInterface[] = [];
     if (!this.hasEllipsis()) {
       this.range(1, this.totalPages()).forEach((page) => {
-        itemsHtml.push({ type: 'page', number: page });
+        itemsHtml.push({type: 'page', number: page});
       });
       return itemsHtml;
     }
 
-    itemsHtml.push({ type: 'page', number: 1 });
+    itemsHtml.push({type: 'page', number: 1});
     if (this._currentPage() < 4) {
       this.range(2, 4).forEach((page) => {
-        itemsHtml.push({ type: 'page', number: page });
+        itemsHtml.push({type: 'page', number: page});
       });
     }
     if (this.hasStartEllipsis()) {
-      itemsHtml.push({ type: 'ellipsis', position: 'start' });
+      itemsHtml.push({type: 'ellipsis', position: 'start', number: -1});
     }
     if (this._currentPage() >= 4 && this._currentPage()
       <= (this.totalPages() - 3)) {
-      itemsHtml.push({ type: 'page', number: this._currentPage() - 1 });
-      itemsHtml.push({ type: 'page', number: this._currentPage() });
-      itemsHtml.push({ type: 'page', number: this._currentPage() + 1 });
+      itemsHtml.push({type: 'page', number: this._currentPage() - 1});
+      itemsHtml.push({type: 'page', number: this._currentPage()});
+      itemsHtml.push({type: 'page', number: this._currentPage() + 1});
     }
     if (this.hasEndEllipsis()) {
-      itemsHtml.push({ type: 'ellipsis', position: 'end' });
+      itemsHtml.push({type: 'ellipsis', position: 'end', number: -1});
     }
     if (this._currentPage() > (this.totalPages() - 3)) {
       this.range(this.totalPages() - 3, this.totalPages() - 1)
         .forEach((page) => {
-          itemsHtml.push({ type: 'page', number: page });
+          itemsHtml.push({type: 'page', number: page});
         });
     }
-    itemsHtml.push({ type: 'page', number: this.totalPages() });
+    itemsHtml.push({type: 'page', number: this.totalPages()});
     return itemsHtml;
   }
 
-  itemHtml(pageNumber, href = '') {
+  itemHtml(pageNumber: number, href: string = '') {
     const classes = ['pagination-link'];
-    const areaLabel = this.itemAriaLabel.replace('%#%', pageNumber);
-    const currentAreaLabel = this.currentItemAriaLabel.replace('%#%',
-      pageNumber);
+    const areaLabel = this.itemAriaLabel.replace('%#%', pageNumber.toString());
+    const currentAreaLabel = this.currentItemAriaLabel.replace('%#%', pageNumber.toString());
 
     if (pageNumber === this._currentPage()) {
       return html`
@@ -114,8 +114,7 @@ class ShaplaWcPagination extends LitElement {
     }
     return html`
       <li><a class="${classes.join(' ')}" aria-label="${areaLabel}"
-             ?href="${href}" @click=${event => this._itemClick(event,
-  pageNumber)}>${pageNumber}</a></li>`;
+             ?href="${href}" @click=${(event: Event) => this._itemClick(event, pageNumber)}>${pageNumber}</a></li>`;
   }
 
   _disabledPrevious() {
@@ -126,9 +125,9 @@ class ShaplaWcPagination extends LitElement {
     return this._currentPage() >= this.totalPages();
   }
 
-  _itemClick(event, pageNumber) {
-    event.target.focus();
-    if (!event.target.hasAttribute('href')) {
+  _itemClick(event: Event, pageNumber: number) {
+    const target = event.target as Element;
+    if (!target.hasAttribute('href')) {
       event.preventDefault();
     }
     this._paginate(pageNumber);
@@ -146,7 +145,7 @@ class ShaplaWcPagination extends LitElement {
     }
   }
 
-  _paginate(pageNumber) {
+  _paginate(pageNumber: number) {
     if (pageNumber !== this._currentPage() && pageNumber > 0 && pageNumber
       <= this.totalPages()) {
       const data = {
@@ -156,12 +155,12 @@ class ShaplaWcPagination extends LitElement {
         totalItems: this.totalItems,
         perPage: this.perPage,
       };
-      this.dispatchEvent(new CustomEvent('paginate', { detail: data }));
+      this.dispatchEvent(new CustomEvent('paginate', {detail: data}));
     }
   }
 
-  range(start, end) {
-    return Array(end - start + 1).fill().map((_, idx) => start + idx);
+  range(start: number, end: number): number[] {
+    return Array(end - start + 1).fill(0).map((_, index: number) => start + index);
   }
 
   hasEllipsis() {
@@ -190,13 +189,12 @@ class ShaplaWcPagination extends LitElement {
     return this.currentPage;
   }
 
-  connectedCallback() {
+  override connectedCallback() {
     super.connectedCallback();
     window.addEventListener('keydown', event => this._keyDownArrow(event));
     setTimeout(() => {
-      const links = this.shadowRoot.querySelectorAll('.pagination-link');
-      console.log(links, links.length);
-      links.forEach((link) => {
+      const links = this.shadowRoot?.querySelectorAll('.pagination-link');
+      links?.forEach((link: Element) => {
         link.addEventListener('focus', () => {
           console.log('focus element.');
         });
@@ -204,12 +202,12 @@ class ShaplaWcPagination extends LitElement {
     }, 100);
   }
 
-  disconnectedCallback() {
+  override disconnectedCallback() {
     window.removeEventListener('keydown', event => this._keyDownArrow(event));
     super.disconnectedCallback();
   }
 
-  _keyDownArrow(event) {
+  _keyDownArrow(event: KeyboardEvent) {
     if (['ArrowRight', 'ArrowUp'].indexOf(event.code) !== -1) {
       console.log('Go next', event);
     }

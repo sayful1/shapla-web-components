@@ -1,6 +1,6 @@
 import {
   ShaplaWcCross, ShaplaWcModal, ShaplaWcPagination, ShaplaWcToggles, ShaplaWcToggle,
-} from './index.js';
+} from './index';
 
 window.customElements.define('shapla-wc-cross', ShaplaWcCross);
 window.customElements.define('shapla-wc-modal', ShaplaWcModal);

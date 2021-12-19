@@ -1,38 +1,47 @@
-import { LitElement, html, css } from 'lit';
-import style from './index.scss';
+import {LitElement, html, css} from 'lit';
+import {customElement, property} from 'lit/decorators.js';
+import style from './style.scss';
+
+customElement('shapla-wc-modal')
 
 class ShaplaWcModal extends LitElement {
-  static get properties() {
-    return {
-      active: { type: Boolean },
-      type: { type: String },
-      contentSize: { type: String, attribute: 'content-size' },
-      backgroundTheme: { type: String, attribute: 'bg-theme' },
-      disabledBackgroundClick: { type: Boolean, attribute: 'disabled-bgclick' },
-      hideCloseIcon: { type: Boolean, attribute: 'disabled-close' },
-      // Card
-      heading: { type: String },
-      hideCardFooter: { type: Boolean, attribute: 'disabled-footer' },
-    };
-  }
 
-  static get styles() {
-    return style({ css });
-  }
+  static override styles = style({css})
 
-  constructor() {
-    super();
-    this.active = false;
-    this.backgroundTheme = 'dark';
-    this.contentSize = 'medium';
-    this.type = 'card';
-    this.hideCloseIcon = false;
-    this.disabledBackgroundClick = false;
-    this.heading = 'Untitled';
-    this.hideCardFooter = false;
-  }
+  /**
+   * The status of the modal
+   */
+  @property({type: Boolean})
+  active = false;
 
-  render() {
+  /**
+   * The modal type
+   */
+  @property({type: String})
+  type = 'card';
+
+  /**
+   * The size of modal content. Value can be small, medium, large, fullscreen
+   */
+  @property({type: String, attribute: 'content-size'})
+  contentSize = 'medium';
+
+  @property({type: String, attribute: 'bg-theme'})
+  backgroundTheme = 'dark'
+
+  @property({type: Boolean, attribute: 'disabled-bgclick'})
+  disabledBackgroundClick = false;
+
+  @property({type: Boolean, attribute: 'disabled-close'})
+  hideCloseIcon = false;
+
+  @property({type: String})
+  heading = 'Untitled';
+
+  @property({type: Boolean, attribute: 'disabled-footer'})
+  hideCardFooter = false;
+
+  override render() {
     const modalClasses = ['shapla-modal'];
     if (this.active) modalClasses.push('is-active');
 
@@ -102,18 +111,18 @@ class ShaplaWcModal extends LitElement {
   }
 
   // ESCAPE key pressed
-  _keyDownEsc(event) {
+  _keyDownEsc(event: KeyboardEvent) {
     if (event.code === 'Escape' && this.active) {
       this._close();
     }
   }
 
-  connectedCallback() {
+  override connectedCallback() {
     super.connectedCallback();
     window.addEventListener('keydown', event => this._keyDownEsc(event));
   }
 
-  disconnectedCallback() {
+  override disconnectedCallback() {
     window.removeEventListener('keydown', event => this._keyDownEsc(event));
     super.disconnectedCallback();
   }

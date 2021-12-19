@@ -6,10 +6,55 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <title>HTML5 Custom Elements</title>
-  <link rel="stylesheet" href="./style.css">
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
 
   <style>
+    html, body, p, ol, ul, li, dl, dt, dd, blockquote, figure, fieldset,
+    legend, textarea, pre, iframe, hr, h1, h2, h3, h4, h5, h6 {
+      margin: 0;
+      padding: 0;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-size: 100%;
+      font-weight: normal;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    button, input, select, textarea {
+      margin: 0;
+    }
+
+    html {
+      box-sizing: border-box;
+    }
+
+    *, *:before, *:after {
+      box-sizing: inherit;
+    }
+
+    img, embed, iframe, object, audio, video {
+      height: auto;
+      max-width: 100%;
+    }
+
+    iframe {
+      border: 0;
+    }
+
+    table {
+      border-collapse: collapse;
+      border-spacing: 0;
+    }
+
+    td, th {
+      padding: 0;
+      text-align: left;
+    }
+
     body {
       font-family: 'Open Sans', sans-serif;
       color: #333;
@@ -20,6 +65,14 @@
 <body>
 <div class="page" style="padding: 1rem">
   <h1>HTML5 Custom Elements</h1>
+
+  <div>
+    <h2>Cross Element</h2>
+    <shapla-wc-cross size="small"></shapla-wc-cross>
+    <shapla-wc-cross></shapla-wc-cross>
+    <shapla-wc-cross size="medium"></shapla-wc-cross>
+    <shapla-wc-cross size="large" onClick="alert('click')"></shapla-wc-cross>
+  </div>
 
   <button class="button--default-modal">Show Default Modal</button>
   <button class="button--card-modal">Show Card Modal</button>
@@ -53,22 +106,22 @@
 </div>
 
 <script>
-  const showDefaultModal = () => document.querySelector('#default-modal').setAttribute('active', 'true');
-  const showCardModal = () => document.querySelector('#card-modal').setAttribute('active', 'true');
+  const showDefaultModal = () => document.querySelector('#default-modal').setAttribute('active', 'true')
+  const showCardModal = () => document.querySelector('#card-modal').setAttribute('active', 'true')
 
-  document.querySelector('.button--default-modal').addEventListener('click', () => showDefaultModal());
-  document.querySelector('#default-modal')
-  .addEventListener('close', () => document.querySelector('#default-modal').removeAttribute('active'));
-  document.querySelector('.button--card-modal').addEventListener('click', () => showCardModal());
-  document.querySelector('#card-modal')
-  .addEventListener('close', () => document.querySelector('#card-modal').removeAttribute('active'));
+  document.querySelector('.button--default-modal').addEventListener('click', () => showDefaultModal())
+  document.querySelector('#default-modal').
+    addEventListener('close', () => document.querySelector('#default-modal').removeAttribute('active'))
+  document.querySelector('.button--card-modal').addEventListener('click', () => showCardModal())
+  document.querySelector('#card-modal').
+    addEventListener('close', () => document.querySelector('#card-modal').removeAttribute('active'))
 
-  const paginationEl = document.querySelector('shapla-wc-pagination');
+  const paginationEl = document.querySelector('shapla-wc-pagination')
   if (paginationEl) {
     paginationEl.addEventListener('paginate', (event) => {
-      window.console.log(event.detail);
-      paginationEl.setAttribute('current-page', event.detail.nextPage);
-    });
+      window.console.log(event.detail)
+      paginationEl.setAttribute('current-page', event.detail.nextPage)
+    })
   }
 </script>
 <script type="module" src='./bundle.js'></script>

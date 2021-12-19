@@ -3,6 +3,7 @@ import resolve from '@rollup/plugin-node-resolve'
 import litSass from '@j1shin/rollup-plugin-lit-sass'
 import { babel } from '@rollup/plugin-babel'
 import commonjs from '@rollup/plugin-commonjs'
+import typescript from '@rollup/plugin-typescript';
 // import { terser } from 'rollup-plugin-terser'
 // import postcss from 'rollup-plugin-postcss'
 
@@ -11,7 +12,7 @@ import commonjs from '@rollup/plugin-commonjs'
 const production = !process.env.ROLLUP_WATCH
 
 export default {
-  input: { bundle: (production ? 'src/index.js' : 'src/main.js') },
+  input: { bundle: (production ? 'src/index.ts' : 'src/main.ts') },
   output: [
     { dir: 'dist', format: 'esm', sourcemap: true },
   ],
@@ -24,5 +25,6 @@ export default {
     // postcss(),
     // production && terser(), // minify, but only in production
     summary(),
+    typescript()
   ],
 }

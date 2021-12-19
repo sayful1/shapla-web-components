@@ -7,4 +7,5 @@ coverage
 custom-elements.json
 package-lock.json
 public/*
-dist/bundle*
+dist/*
+!dist/index.html
