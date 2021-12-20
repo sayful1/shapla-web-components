@@ -1,3 +1,7 @@
 @use "node_modules/shapla-css/src/index.scss" as shapla;
 
 @include shapla.delete-icon;
+
+:host {
+  display: inline-block
+}

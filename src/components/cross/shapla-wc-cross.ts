@@ -27,7 +27,7 @@ class ShaplaWcCross extends LitElement {
     if (['normal', 'small', 'medium', 'large'].indexOf(this.size) !== -1) {
       classes.push(`is-${this.size}`);
     }
-    return html`<span class="${classes.join(' ')}" aria-label="${this.ariaLabel}" role="button"></span>`;
+    return html`<button class="${classes.join(' ')}" aria-label="${this.ariaLabel}"></button>`;
   }
 }
 

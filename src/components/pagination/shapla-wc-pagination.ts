@@ -160,6 +160,10 @@ class ShaplaWcPagination extends LitElement {
   }
 
   range(start: number, end: number): number[] {
+    if (start > end) {
+      window.console.log(`Start number: ${start} cannot bigger than end number: ${end}.`);
+      return [];
+    }
     return Array(end - start + 1).fill(0).map((_, index: number) => start + index);
   }
 

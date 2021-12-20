@@ -8,6 +8,15 @@ interface ToggleCloseDataInterface {
   toggleUUID: string,
 }
 
+interface TogglesDataInterface {
+  uuid: string,
+  accordion: string,
+  boxMode: string,
+  iconPosition: string,
+  showDivider: string,
+  titleColor: string,
+}
+
 customElement('shapla-wc-toggle')
 
 class ShaplaWcToggle extends LitElement {
@@ -66,7 +75,8 @@ class ShaplaWcToggle extends LitElement {
   }
 
   watchCloseEvent() {
-    ToggleUtils.on('close.ShaplaWcToggle', (data: ToggleCloseDataInterface) => {
+    document.addEventListener('close.ShaplaWcToggle', (event: CustomEvent) => {
+      let data = event.detail as ToggleCloseDataInterface;
       if (data.togglesUUID === this.parentUUID) {
         const panelBody = this.shadowRoot?.querySelector('.shapla-toggle-panel__body');
         if (data.toggleUUID === this.itemUUID) {
@@ -81,7 +91,8 @@ class ShaplaWcToggle extends LitElement {
   }
 
   watchChangeEvent() {
-    ToggleUtils.on('changed.ShaplaWcToggle', async (data) => {
+    document.addEventListener('changed.ShaplaWcToggle', async (event: CustomEvent) => {
+      let data = event.detail as TogglesDataInterface;
       if (data.uuid === this.parentUUID) {
         if (this.accordion !== data.accordion) {
           this.accordion = data.accordion;

@@ -2,7 +2,6 @@
   "root": true,
   "extends": [
     "eslint:recommended",
-    "@open-wc/eslint-config",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended"
   ],
@@ -35,8 +34,7 @@
   "overrides": [
     {
       "files": [
-        "rollup.config.js",
-        "web-test-runner.config.js"
+        "rollup.config.js"
       ],
       "env": {
         "node": true

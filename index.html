@@ -106,24 +106,24 @@
 </div>
 
 <script>
-  const showDefaultModal = () => document.querySelector('#default-modal').setAttribute('active', 'true')
-  const showCardModal = () => document.querySelector('#card-modal').setAttribute('active', 'true')
+  const showDefaultModal = () => document.querySelector('#default-modal').setAttribute('active', 'true');
+  const showCardModal = () => document.querySelector('#card-modal').setAttribute('active', 'true');
 
-  document.querySelector('.button--default-modal').addEventListener('click', () => showDefaultModal())
-  document.querySelector('#default-modal').
-    addEventListener('close', () => document.querySelector('#default-modal').removeAttribute('active'))
-  document.querySelector('.button--card-modal').addEventListener('click', () => showCardModal())
-  document.querySelector('#card-modal').
-    addEventListener('close', () => document.querySelector('#card-modal').removeAttribute('active'))
+  document.querySelector('.button--default-modal').addEventListener('click', () => showDefaultModal());
+  document.querySelector('#default-modal')
+  .addEventListener('close', () => document.querySelector('#default-modal').removeAttribute('active'));
+  document.querySelector('.button--card-modal').addEventListener('click', () => showCardModal());
+  document.querySelector('#card-modal')
+  .addEventListener('close', () => document.querySelector('#card-modal').removeAttribute('active'));
 
-  const paginationEl = document.querySelector('shapla-wc-pagination')
+  const paginationEl = document.querySelector('shapla-wc-pagination');
   if (paginationEl) {
     paginationEl.addEventListener('paginate', (event) => {
-      window.console.log(event.detail)
-      paginationEl.setAttribute('current-page', event.detail.nextPage)
-    })
+      window.console.log(event.detail);
+      paginationEl.setAttribute('current-page', event.detail.nextPage);
+    });
   }
 </script>
-<script type="module" src='./bundle.js'></script>
+<script type="module" src='./dist/bundle.js'></script>
 </body>
 </html>

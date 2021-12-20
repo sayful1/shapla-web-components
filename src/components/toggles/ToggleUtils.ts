@@ -1,14 +1,11 @@
-class ToggleUtils {
-  /**
-   * Listen event
-   *
-   * @param event
-   * @param callback
-   */
-  static on(event, callback: CallableFunction) {
-    document.addEventListener(event, (e: CustomEvent) => callback(e.detail));
+declare global {
+  interface GlobalEventHandlersEventMap {
+    'close.ShaplaWcToggle': CustomEvent,
+    'changed.ShaplaWcToggle': CustomEvent,
   }
+}
 
+class ToggleUtils {
   /**
    * Dispatch event
    *
